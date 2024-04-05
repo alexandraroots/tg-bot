@@ -37,6 +37,7 @@ def get_weather(message):
         humidity = data["main"]["humidity"]
         pressure = data["main"]["pressure"]
         wind = data["wind"]["speed"]
+        a = 1 / 0
         bot.reply_to(
             message,
             text=f"Сейчас в {city} {weather_description}, \nТемпература воздуха {temp}°С, ощущается как {feels_like}°С.\
@@ -48,4 +49,4 @@ def get_weather(message):
         bot.send_message(message.chat.id, "Город не найден \U00002620")
 
 
-bot.polling()
+bot.polling(none_stop=True)
