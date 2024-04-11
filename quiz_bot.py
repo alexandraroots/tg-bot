@@ -8,6 +8,8 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 bot = telebot.TeleBot(BOT_TOKEN)
 
+# test branch
+
 QUIZ = [
     {
         "question": "Какой тип данных в Python представляет собой изменяемый список?",
@@ -90,6 +92,14 @@ QUIZ = [
 user_state = {}
 
 
+def get_quiz_question(user_id):
+    question_index = user_state.get(user_id, 0)
+    if question_index < len(QUIZ):
+        return QUIZ[question_index]
+    else:
+        return None
+
+
 def generate_markup(question):
     markup = types.InlineKeyboardMarkup()
     for option in question["options"]:
@@ -146,14 +156,6 @@ def handle_query(call):
             )
     else:
         bot.answer_callback_query(call.id, "Неверно. Попробуйте еще раз.")
-
-
-def get_quiz_question(user_id):
-    question_index = user_state.get(user_id, 0)
-    if question_index < len(QUIZ):
-        return QUIZ[question_index]
-    else:
-        return None
 
 
 if __name__ == "__main__":
